@@ -88,9 +88,7 @@ def assign_priority(df_g ,df_h ,priority, capacity):
                 break
             else:
                 pass
-        if df_g.at[index, 'hotel_num'] == np.nan:
-            print("yyyyye")
-            df_g.at[index, 'hotel_num'] = 'nothing'
+        if type(df_g['hotel_num'][index]) != str:
             df_g.at[index, 'satisfaction'] = 0.00
             
     return df_g
