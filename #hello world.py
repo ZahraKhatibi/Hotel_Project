@@ -39,11 +39,12 @@ def assign_random(df_g ,df_h ,priority, capacity):
         while(len(priority[row['guest']])>0 or row['hotel_num'] == np.nan):
 
             random_room = random.choice(priority[row['guest']])
-
+            
             if capacity[random_room][0]>=1:
                 capacity[random_room][0] -= 1
                 df_g.at[index, 'hotel_num'] = random_room
                 df_g.at[index, 'price_after_discount'] = df_h['price'][int(random_room[6::])-1] - df_g['discount'][index]
+                df_g.at[index, 'satisfaction'] = round(100-(guest_priority_dict[row['guest']].index(guests['hotel_num'][index])+1)/(len(guest_priority_dict[row['guest']]))*100,2)
                 break
             else:
                 priority[row['guest']].remove(random_room)
