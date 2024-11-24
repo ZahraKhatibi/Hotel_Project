@@ -27,6 +27,12 @@ print(hotel_rooms_list[0:20])
 
 #create new column for assinging hotel to each guests
 # fill them with nan
-guests['hotel&room'] = np.nan
 
-hotel_rooms_list = random.shuffle(hotel_rooms_list)
+#shuffling the list to make it random
+random.shuffle(hotel_rooms_list)
+
+#assigning the hotel and room
+guests['hotel&room'] = hotel_rooms_list[0:len(guests)]
+
+#show results:
+print(guests.head())
