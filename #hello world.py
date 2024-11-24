@@ -30,3 +30,19 @@ hotel_capacity = hotels.groupby('hotel')['rooms'].apply(list)
 
 #example
 print(hotel_capacity['hotel_2'])
+
+#define a function to assigning hotels randomly based on their priority
+def assign_random(df, priority, capacity):
+    
+    for index , row in df.iterrows(): 
+        while(len(priority[row['guest']])>0 or row['hotel_num'] == np.nan):
+
+            random_room = random.choice(priority[row['guest']])
+
+            if capacity[random_room][0]>=1:
+                capacity[random_room][0] -= 1
+                df.at[index, 'hotel_num'] = random_room
+                break
+            else:
+                priority[row['guest']].remove(random_room)
+    return df
