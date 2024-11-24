@@ -23,4 +23,5 @@ guests['hotel_num'] = np.nan
 guest_priority_dict = preferences.groupby('guest')['hotel'].apply(list).to_dict()
 
 #show example
-guest_priority_dict['guest_1']
+print(guest_priority_dict['guest_1'])
+
