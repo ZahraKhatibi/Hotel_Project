@@ -24,3 +24,9 @@ for _, row in hotels.iterrows():
 
 #watching the result
 print(hotel_rooms_list[0:20])
+
+#create new column for assinging hotel to each guests
+# fill them with nan
+guests['hotel&room'] = np.nan
+
+hotel_rooms_list = random.shuffle(hotel_rooms_list)
