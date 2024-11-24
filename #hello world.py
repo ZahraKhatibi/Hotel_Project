@@ -84,7 +84,7 @@ def assign_priority(df_g ,df_h ,priority, capacity):
                 capacity[hlt][0] -= 1
                 df_g.at[index, 'hotel_num'] = hlt
                 df_g.at[index, 'price_after_discount'] = df_h['price'][int(hlt[6::])-1] - df_g['discount'][index]
-                df_g.at[index, 'satisfaction'] = round(100-(guest_priority_dict[row['guest']].index(guests['hotel_num'][index]))/(len(guest_priority_dict[row['guest']]))*100,2)
+                df_g.at[index, 'satisfaction'] = round(100-(priority[row['guest']].index(guests['hotel_num'][index]))/(len(priority[row['guest']]))*100,2)
                 break
             else:
                 pass
@@ -95,4 +95,32 @@ def assign_priority(df_g ,df_h ,priority, capacity):
 
 
 guests_hotel = assign_priority(guests,hotels,guest_priority_dict,hotel_capacity)
+print(guests_hotel)
+
+
+# availability
+max_capacity = list(hotels.sort_values(by='rooms', ascending=[False])['hotel'])
+
+def assign_availability(df_g ,df_h ,priority, capacity):
+    
+    for index , row in df_g.iterrows():     
+        if index == 0:
+            for hlt in max_capacity:
+                if hlt in priority[row['guest']]:
+                    if capacity[hlt][0]>=1:
+                        capacity[hlt][0] -= 1
+                        df_g.at[index, 'hotel_num'] = hlt
+                        df_g.at[index, 'price_after_discount'] = df_h['price'][int(hlt[6::])-1] - df_g['discount'][index]
+                        df_g.at[index, 'satisfaction'] = round(100-(priority[row['guest']].index(guests['hotel_num'][index]))/(len(priority[row['guest']]))*100,2)
+                        break
+                    else:
+                        pass
+                else: 
+                    pass
+        if type(df_g['hotel_num'][index]) != str:
+            df_g.at[index, 'satisfaction'] = 0.00
+            
+    return df_g
+
+guests_hotel = assign_availability(guests,hotels,guest_priority_dict,hotel_capacity)
 print(guests_hotel)
