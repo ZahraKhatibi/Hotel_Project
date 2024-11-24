@@ -10,5 +10,13 @@ hotels = pd.read_excel(r"D:\github\x\dse\Python_Project\hotels.xlsx")
 print(preferences.head())
 print(guests.head())
 print(hotels.head())
-
-# random assign: customers are randomly distributed to the rooms until the seats or customers are exhausted;
+#------------------------------------------------------------------------#
+# random assign
+# customers are randomly distributed to the rooms until the seats or customers are exhausted;
+#------------------------------------------------------------------------#
+hotel_rooms_list = []
+for _, row in hotels.iterrows():
+    hotel_name = row['hotel']
+    num_rooms = row['rooms']
+    # Create a list of tuples (hotel_name, room_number) for each hotel
+    hotel_rooms_list.extend([(hotel_name, i) for i in range(1, num_rooms + 1)])
