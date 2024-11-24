@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import random
 
 # Load the data
 preferences = pd.read_excel(r"D:\github\x\dse\Python_Project\preferences.xlsx")
@@ -20,3 +21,6 @@ for _, row in hotels.iterrows():
     num_rooms = row['rooms']
     # Create a list of tuples (hotel_name, room_number) for each hotel
     hotel_rooms_list.extend([(hotel_name, i) for i in range(1, num_rooms + 1)])
+
+#watching the result
+print(hotel_rooms_list[0:20])
