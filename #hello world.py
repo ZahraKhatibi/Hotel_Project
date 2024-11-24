@@ -92,3 +92,7 @@ def assign_priority(df_g ,df_h ,priority, capacity):
             df_g.at[index, 'satisfaction'] = 0.00
             
     return df_g
+
+
+guests_hotel = assign_priority(guests,hotels,guest_priority_dict,hotel_capacity)
+print(guests_hotel)
