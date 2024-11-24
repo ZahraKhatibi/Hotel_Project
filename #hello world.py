@@ -72,3 +72,25 @@ hotels_income = hotels_income.reindex(sorted(hotels_income.index, key=lambda x: 
 hotels['hotel_income'] = list(hotels_income)
 
 print(hotels)
+
+
+def assign_priority(df_g ,df_h ,priority, capacity):
+    
+    for index , row in df_g.iterrows():
+        
+        for hlt in priority[row['guest']]:
+
+            if capacity[hlt][0]>=1:
+                capacity[hlt][0] -= 1
+                df_g.at[index, 'hotel_num'] = hlt
+                df_g.at[index, 'price_after_discount'] = df_h['price'][int(hlt[6::])-1] - df_g['discount'][index]
+                df_g.at[index, 'satisfaction'] = round(100-(guest_priority_dict[row['guest']].index(guests['hotel_num'][index]))/(len(guest_priority_dict[row['guest']]))*100,2)
+                break
+            else:
+                pass
+        if df_g.at[index, 'hotel_num'] == np.nan:
+            print("yyyyye")
+            df_g.at[index, 'hotel_num'] = 'nothing'
+            df_g.at[index, 'satisfaction'] = 0.00
+            
+    return df_g
