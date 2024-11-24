@@ -19,6 +19,7 @@ print(hotels.head())
 #at frist, assign nan to all guest for their hotel number
 guests['hotel_num'] = np.nan
 guests['price_after_discount'] = np.nan
+guests['satisfaction'] = np.nan
 
 #define guests priority dictionary 
 guest_priority_dict = preferences.groupby('guest')['hotel'].apply(list).to_dict()
