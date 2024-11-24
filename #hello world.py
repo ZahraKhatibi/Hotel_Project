@@ -64,3 +64,7 @@ hotels['guest_count'] = list(hotel_counts)
 
 print("What percentage of hotels are fully booked? ",sum(hotels['rooms']==hotels['guest_count'])/len(hotels)*100)
 
+#How much revenue does each hotel generate?
+hotels_income = guests.groupby('hotel_num')['price_after_discount'].sum()
+hotels_income = hotels_income.reindex(sorted(hotel_income.index, key=lambda x: int(x.split('_')[1])))
+hotels['hotel_income'] = list(hotels_income)
