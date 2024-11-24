@@ -18,6 +18,7 @@ print(hotels.head())
 
 #at frist, assign nan to all guest for their hotel number
 guests['hotel_num'] = np.nan
+guests['price_after_discount'] = np.nan
 
 #define guests priority dictionary 
 guest_priority_dict = preferences.groupby('guest')['hotel'].apply(list).to_dict()
@@ -46,3 +47,6 @@ def assign_random(df, priority, capacity):
             else:
                 priority[row['guest']].remove(random_room)
     return df
+
+guests_hotel = assign_random(guests,guest_priority_dict,hotel_capacity)
+print(guests_hotel.head())
