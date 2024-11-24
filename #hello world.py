@@ -62,3 +62,5 @@ hotel_counts = guests_hotel['hotel_num'].value_counts()
 hotel_counts = hotel_counts.reindex(sorted(hotel_counts.index, key=lambda x: int(x.split('_')[1])))
 hotels['guest_count'] = list(hotel_counts)
 
+print("What percentage of hotels are fully booked? ",sum(hotels['rooms']==hotels['guest_count'])/len(hotels)*100)
+
