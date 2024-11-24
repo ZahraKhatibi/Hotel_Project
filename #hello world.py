@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 # Load the data
 preferences = pd.read_excel(r"D:\github\x\dse\Python_Project\preferences.xlsx")
