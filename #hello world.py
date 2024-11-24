@@ -51,3 +51,14 @@ def assign_random(df_g ,df_h ,priority, capacity):
 
 guests_hotel = assign_random(guests,hotels,guest_priority_dict,hotel_capacity)
 print(guests_hotel)
+
+# report
+
+print("the number of customers accommodated: ", sum(guests_hotel['hotel_num']!= np.nan))
+
+
+# How many rooms of each hotels are full?
+hotel_counts = guests_hotel['hotel_num'].value_counts()
+hotel_counts = hotel_counts.reindex(sorted(hotel_counts.index, key=lambda x: int(x.split('_')[1])))
+hotels['guest_count'] = list(hotel_counts)
+
