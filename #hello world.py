@@ -25,3 +25,8 @@ guest_priority_dict = preferences.groupby('guest')['hotel'].apply(list).to_dict(
 #show example
 print(guest_priority_dict['guest_1'])
 
+#define hotels capacity list
+hotel_capacity = hotels.groupby('hotel')['rooms'].apply(list)
+
+#example
+print(hotel_capacity['hotel_2'])
