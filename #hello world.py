@@ -15,24 +15,6 @@ print(hotels.head())
 # random assign
 # customers are randomly distributed to the rooms until the seats or customers are exhausted;
 #------------------------------------------------------------------------#
-hotel_rooms_list = []
-for _, row in hotels.iterrows():
-    hotel_name = row['hotel']
-    num_rooms = row['rooms']
-    # Create a list of tuples (hotel_name, room_number) for each hotel
-    hotel_rooms_list.extend([(hotel_name, i) for i in range(1, num_rooms + 1)])
 
-#watching the result
-print(hotel_rooms_list[0:20])
-
-#create new column for assinging hotel to each guests
-# fill them with nan
-
-#shuffling the list to make it random
-random.shuffle(hotel_rooms_list)
-
-#assigning the hotel and room
-guests['hotel&room'] = hotel_rooms_list[0:len(guests)]
-
-#show results:
-print(guests.head())
+#at frist, assign nan to all guest for their hotel number
+guests['hotel_num'] = np.nan
