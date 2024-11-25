@@ -79,3 +79,48 @@ def assign_low_price(df_g ,df_h):
                     break          
     return df_g
 
+def create_report(df_g, df_h):
+    # Ensure `preferences` is defined or passed to the function if used
+    priority = preferences.groupby('guest')['hotel'].apply(list).to_dict()
+    capacity = df_h.groupby('hotel')['rooms'].apply(list)
+    
+    # Initialize new columns
+    df_g['price_after_discount'] = np.nan
+    df_g['satisfaction'] = np.nan
+    
+    for index, row in df_g.iterrows():
+        if not isinstance(df_g.loc[index, 'hotel_num'], str):
+            df_g.at[index, 'satisfaction'] = 0.00
+        else:
+            room_number = int(df_g.loc[index, 'hotel_num'][6:]) - 1
+            df_g.at[index, 'price_after_discount'] = (
+                df_h.loc[room_number, 'price'] - df_g.loc[index, 'discount']
+            )
+            df_g.at[index, 'satisfaction'] = round(
+                100 - ((priority[row['guest']].index(df_g.loc[index, 'hotel_num'])) / 
+                       len(priority[row['guest']]) * 100), 2
+            )
+
+    # Count guests for each hotel
+    hotel_counts = df_g['hotel_num'].value_counts()
+    hotel_counts = hotel_counts.reindex(sorted(df_h['hotel']), fill_value=0)
+    df_h['guest_count'] = hotel_counts.tolist()
+
+    # Calculate total income for each hotel
+    # Calculate total income for each hotel
+    hotels_income = df_g.groupby('hotel_num')['price_after_discount'].sum()
+
+    # Reindex to match the hotel column in df_h, filling missing values with 0
+    hotels_income = hotels_income.reindex(sorted(df_h['hotel']), fill_value=0)
+
+    # Assign to df_h['hotel_income']
+    df_h['hotel_income'] = hotels_income.tolist()
+
+    
+    # Print reports
+    print("How many guests have settled in?", (df_g['hotel_num'].notnull().sum()))
+    print("What percentage of hotels are fully booked?", 
+          ( sum(df_h['rooms'] == df_h['guest_count']) / len(df_h) * 100), "%")
+    print("How satisfied are guests with their hotel?", df_g['satisfaction'].mean())
+    
+    return df_g
