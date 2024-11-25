@@ -1,5 +1,7 @@
 # Hotel Project
 
+![Logo](images/pic.png)
+
 This project focuses on assigning guests to hotel rooms based on different strategies and generating reports on guest satisfaction, hotel income, and other key metrics. The goal is to create a system that can simulate guest assignments to hotels and analyze the results based on various strategies.
 
 ## Table of Contents
