@@ -1,3 +1,5 @@
+## Importing Libraries
+
 import pandas as pd
 import numpy as np
 import random
@@ -12,11 +14,9 @@ hotels = pd.read_excel(r"D:\github\x\dse\Python_Project\hotels.xlsx")
 print(preferences.head())
 print(guests.head())
 print(hotels.head())
-#------------------------------------------------------------------------#
-# random assign
-# customers are randomly distributed to the rooms until the seats or customers are exhausted;
-#------------------------------------------------------------------------#
 
+
+# This function, assign_random, assigns hotels to guests based on their preferences and hotel room availability randomlly.
 def assign_random(df_g ,df_h):
     
     priority = preferences.groupby('guest')['hotel'].apply(list).to_dict()
@@ -34,6 +34,7 @@ def assign_random(df_g ,df_h):
                 priority[row['guest']].remove(random_room)
     return df_g
 
+# The assign_priority function assigns hotels to guests based on their preferences, giving priority to the most preferred hotels while considering room availability.
 def assign_priority(df_g ,df_h):
     
     priority = preferences.groupby('guest')['hotel'].apply(list).to_dict()
@@ -50,6 +51,7 @@ def assign_priority(df_g ,df_h):
                 break        
     return df_g
 
+# The assign_availability function assigns hotels to guests based on their preferences and hotel availability, prioritizing hotels with the most available rooms.
 def assign_availability(df_g ,df_h):
     priority = preferences.groupby('guest')['hotel'].apply(list).to_dict()
     capacity = df_h.groupby('hotel')['rooms'].apply(list)
@@ -65,6 +67,7 @@ def assign_availability(df_g ,df_h):
                     break      
     return df_g
 
+# The assign_low_price function assigns hotels to guests based on their preferences, prioritizing hotels with the lowest price while considering room availability.
 def assign_low_price(df_g ,df_h):    
     priority = preferences.groupby('guest')['hotel'].apply(list).to_dict()
     capacity = df_h.groupby('hotel')['rooms'].apply(list)
@@ -79,6 +82,8 @@ def assign_low_price(df_g ,df_h):
                     df_g.at[index, 'hotel_num'] = hlt
                     break          
     return df_g
+
+#The create_report function generates a report based on guest hotel assignments, satisfaction, and hotel performance metrics.
 
 def create_report(df_g, df_h):
     
