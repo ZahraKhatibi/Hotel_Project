@@ -163,4 +163,21 @@ print(df_guests_assign_availability)
 print(df_hotels_assign_availability)
 
 
-
+data = [random_result, priority_result, low_price_result, availability_result]
+labels = ['Random', 'Priority', 'Low Price', 'Availability']
+titles = ['number of guest settled in', 'percentage of hotels_are fully booked', 'satisfication', 'hotel income']
+# Create bar chart
+for i in range(4):
+    values = [lst[i] for lst in data]
+    
+    # Create the bar chart
+    plt.figure(figsize=(6, 4))
+    plt.bar(labels, values, color=['blue', 'green', 'orange', 'red'])
+    
+    # Add titles and labels
+    plt.title(titles[i])
+    plt.ylabel('Value')
+    plt.xlabel('Result Types')
+    
+    # Show the plot
+    plt.show()
