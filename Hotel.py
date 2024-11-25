@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import random
+import matplotlib.pyplot as plt
 
 # Load the data
 preferences = pd.read_excel(r"D:\github\x\dse\Python_Project\preferences.xlsx")
@@ -160,5 +161,6 @@ print(assign_availability(guests, hotels))
 df_guests_assign_availability, df_hotels_assign_availability , availability_result = create_report(guests, hotels)
 print(df_guests_assign_availability)
 print(df_hotels_assign_availability)
+
 
 
