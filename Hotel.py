@@ -102,18 +102,15 @@ def create_report(df_g, df_h):
             )
 
     # Count guests for each hotel
+
+    
     hotel_counts = df_g['hotel_num'].value_counts()
-    hotel_counts = hotel_counts.reindex(sorted(df_h['hotel']), fill_value=0)
+    hotel_counts = hotel_counts.reindex(sorted(hotel_counts.index, key=lambda x: int(x.split('_')[1])), fill_value=0)
     df_h['guest_count'] = hotel_counts.tolist()
+    # Calculate total income for each hotel
 
-    # Calculate total income for each hotel
-    # Calculate total income for each hotel
     hotels_income = df_g.groupby('hotel_num')['price_after_discount'].sum()
-
-    # Reindex to match the hotel column in df_h, filling missing values with 0
-    hotels_income = hotels_income.reindex(sorted(df_h['hotel']), fill_value=0)
-
-    # Assign to df_h['hotel_income']
+    hotels_income = hotels_income.reindex(sorted(hotels_income.index, key=lambda x: int(x.split('_')[1])),fill_value=0)
     df_h['hotel_income'] = hotels_income.tolist()
 
     
