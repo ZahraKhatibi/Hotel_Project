@@ -80,6 +80,7 @@ def assign_low_price(df_g ,df_h):
     return df_g
 
 def create_report(df_g, df_h):
+    
     # Ensure `preferences` is defined or passed to the function if used
     priority = preferences.groupby('guest')['hotel'].apply(list).to_dict()
     capacity = df_h.groupby('hotel')['rooms'].apply(list)
@@ -119,9 +120,15 @@ def create_report(df_g, df_h):
 
     
     # Print reports
-    print("How many guests have settled in?", (df_g['hotel_num'].notnull().sum()))
-    print("What percentage of hotels are fully booked?", 
-          ( sum(df_h['rooms'] == df_h['guest_count']) / len(df_h) * 100), "%")
-    print("How satisfied are guests with their hotel?", df_g['satisfaction'].mean())
+    number_of_guest_settled_in = df_g['hotel_num'].notnull().sum()
+    percentage_of_hotels_are_fully_booked = sum(df_h['rooms'] == df_h['guest_count']) / len(df_h) * 100
+    satisfication = df_g['satisfaction'].mean()
+    hotel_income = df_h['hotel_income'].sum()
     
-    return df_g
+    result_list = [number_of_guest_settled_in, percentage_of_hotels_are_fully_booked, satisfication,hotel_income ]
+    print("How many guests have settled in?", number_of_guest_settled_in)
+    print("What percentage of hotels are fully booked?", percentage_of_hotels_are_fully_booked)
+    print("How satisfied are guests with their hotel?", satisfication)
+    print("What is the total revenue of the hotels?",  hotel_income)
+    
+    return df_g, df_h, result_list
