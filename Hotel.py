@@ -132,3 +132,33 @@ def create_report(df_g, df_h):
     print("What is the total revenue of the hotels?",  hotel_income)
     
     return df_g, df_h, result_list
+
+
+# random part
+print(assign_random(guests, hotels))
+df_guests_assign_random, df_hotels_assign_random , random_result = create_report(guests, hotels)
+print(df_guests_assign_random)
+print(df_hotels_assign_random)
+
+
+#priority part
+print(assign_priority(guests, hotels))
+df_guests_assign_priority, df_hotels_assign_priority , priority_result = create_report(guests, hotels)
+print(df_guests_assign_priority)
+print(df_hotels_assign_priority)
+
+
+#low price part
+print(assign_low_price(guests, hotels))
+df_guests_assign_low_price, df_hotels_assign_low_price , low_price_result = create_report(guests, hotels)
+print(df_guests_assign_low_price)
+print(df_hotels_assign_low_price)
+
+
+#availability part
+print(assign_availability(guests, hotels))
+df_guests_assign_availability, df_hotels_assign_availability , availability_result = create_report(guests, hotels)
+print(df_guests_assign_availability)
+print(df_hotels_assign_availability)
+
+
